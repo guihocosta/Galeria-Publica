@@ -32,7 +32,8 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.paging.guava)
+    implementation(libs.paging.runtime)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
