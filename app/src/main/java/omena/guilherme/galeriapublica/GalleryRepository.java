@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GalleryRepository {
     Context context;
@@ -22,8 +23,9 @@ public class GalleryRepository {
         this.context = context;
     }
 
-    public ArrayList<ImageData> loadImageData(Integer limit, Integer offSet) throws FileNotFoundException{
-        ArrayList<ImageData> imageDataList = new ArrayList<>();
+    public List<ImageData> loadImageData(Integer limit, Integer offSet)
+            throws FileNotFoundException{
+        List<ImageData> imageDataList = new ArrayList<>();
         int w = (int)context.getResources().getDimension(R.dimen.im_width);
         int h = (int)context.getResources().getDimension(R.dimen.im_height);
 
@@ -82,9 +84,8 @@ public class GalleryRepository {
             Bitmap thumb = Util.getBitmap(context, contentUri, w,h);
 
             imageDataList.add(new ImageData(contentUri, thumb, name, new Date(dateAdded*1000L), size));
-            return imageDataList;
 
         }
-        return null;
+        return imageDataList;
     }
 }

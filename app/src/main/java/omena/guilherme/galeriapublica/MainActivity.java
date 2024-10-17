@@ -23,23 +23,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    static int RESULT_REQUEST_PERMISSION = 1;
+    static int RESULT_REQUEST_PERMISSION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
         setContentView(R.layout.activity_main);
 
         final MainViewModel vm = new ViewModelProvider(this).get(MainViewModel.class);
@@ -53,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.gridViewOp) {
                     GridViewFragment gridViewFragment = GridViewFragment.newInstance();
                     setFragment(gridViewFragment);
-                } else if (itemId == R.id.listViewOp) {
+                }
+                if (itemId == R.id.listViewOp) {
                     ListViewFragment listViewFragment = ListViewFragment.newInstance();
                     setFragment(listViewFragment);
                 }
@@ -66,15 +60,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ArrayList<String> permissions = new ArrayList<>();
+        List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         checkForPermissions(permissions);
-
     }
 
-    private void checkForPermissions(ArrayList<String> permissions) {
+    private void checkForPermissions(List<String> permissions) {
 
-        ArrayList<String> permissionsNotGranted = new ArrayList<>();
+        List<String> permissionsNotGranted = new ArrayList<>();
 
         // Permissoes sao verificadas
         for (String permission : permissions){

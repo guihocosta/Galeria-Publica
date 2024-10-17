@@ -11,6 +11,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
@@ -44,7 +45,7 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
         ListenableFuture<LoadResult<Integer, ImageData>> lf = service.submit(new Callable<LoadResult<Integer, ImageData>>() {
             @Override
             public LoadResult<Integer, ImageData> call() throws Exception {
-                ArrayList<ImageData> imageDataList = null;
+                List<ImageData> imageDataList = null;
                 try{
                     imageDataList = galleryRepository.loadImageData(loadParams.getLoadSize(), finalOffSet);
                     Integer nextKey = null;
@@ -64,6 +65,6 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
     @Nullable
     @Override
     public Integer getRefreshKey(@NonNull PagingState<Integer, ImageData> pagingState) {
-        return 0;
+        return null;
     }
 }

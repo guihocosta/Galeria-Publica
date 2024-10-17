@@ -46,4 +46,9 @@ public class ListAdapter extends PagingDataAdapter<ImageData, MyViewHolder> {
 
 
     }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }

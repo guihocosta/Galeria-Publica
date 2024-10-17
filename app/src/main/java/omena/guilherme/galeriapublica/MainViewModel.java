@@ -23,7 +23,7 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         GalleryRepository galleryRepository = new GalleryRepository(application);
         GalleryPagingSource galleryPagingSource = new GalleryPagingSource(galleryRepository);
-        Pager<Integer, ImageData> pager = new Pager(new PagingConfig(10), () -> galleryPagingSource);
+        Pager<Integer, ImageData> pager = new Pager<>(new PagingConfig(10), () -> galleryPagingSource);
         CoroutineScope viewModelScope = ViewModelKt.getViewModelScope(this);
         pageLv = PagingLiveData.cachedIn(PagingLiveData.getLiveData(pager), viewModelScope);
     }
