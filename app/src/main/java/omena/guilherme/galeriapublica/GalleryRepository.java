@@ -29,13 +29,14 @@ public class GalleryRepository {
         int w = (int)context.getResources().getDimension(R.dimen.im_width);
         int h = (int)context.getResources().getDimension(R.dimen.im_height);
 
-        String[] projection = new String[]{MediaStore.Images.Media._ID,
+        String[] projection = new String[]{
+                MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.DATE_ADDED,
                 MediaStore.Images.Media.SIZE};
 
         String selection = null;
-        String selectionArgs[] = null;
+        String[] selectionArgs = null;
         String sort = MediaStore.Images.Media.DATE_ADDED;
         Cursor cursor = null;
 
@@ -63,11 +64,17 @@ public class GalleryRepository {
 
             cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     projection,
+                    queryArgs,
+                    null
+            );}
+            else{
+            cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection,
                     selection,
                     selectionArgs,
-                    sort + " ASC + LIMIT " + String.valueOf(limit) + "OFFSET " +
-                    String.valueOf(offSet));
-        }
+                    sort + " ASC + LIMIT " + String.valueOf(limit) + " OFFSET " +
+                            String.valueOf(offSet));
+            }
 
         int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME);
